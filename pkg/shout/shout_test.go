@@ -1,13 +1,14 @@
-package shouty_test
+package shout_test
 
 import (
-	"github.com/danmurf/go-cli/shouty"
+	"github.com/danmurf/go-cli/pkg/shout"
 	"testing"
 )
 
-func Test_loudMouth_Shout(t *testing.T) {
+func TestShout_Shout(t *testing.T) {
 	type args struct {
-		in0 string
+		in0   string
+		level int
 	}
 	tests := []struct {
 		name string
@@ -16,24 +17,24 @@ func Test_loudMouth_Shout(t *testing.T) {
 	}{
 		{
 			"regular shout 1",
-			args{in0:"hello"},
+			args{in0: "hello", level: 5},
 			"HELLO!!!!!",
 		},
 		{
 			"regular shout 2",
-			args{in0:"YES"},
-			"YES!!!!!",
+			args{in0: "YES", level: 1},
+			"YES!",
 		},
 		{
 			"regular shout 3",
-			args{in0:"NO"},
-			"NO!!!!!",
+			args{in0: "NO", level: 3},
+			"NO!!!",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			l := shouty.NewLoudMouth()
-			if got := l.Shout(tt.args.in0); got != tt.want {
+			l := shout.NewShout()
+			if got := l.Shout(tt.args.in0, tt.args.level); got != tt.want {
 				t.Errorf("Shout() = %v, want %v", got, tt.want)
 			}
 		})
